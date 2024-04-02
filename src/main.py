@@ -14,14 +14,11 @@ class Main:
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Chess')
     self.game = Game()
-    self.ai = AI('black') 
-    self.aigamemode = True
 
   def mainloop(self):
 
     screen = self.screen
     game = self.game
-    ai = self.ai 
     board = self.game.board
     dragger = self.game.dragger
         
@@ -37,22 +34,6 @@ class Main:
         dragger.update_blit(screen)
 
       for event in pygame.event.get():
-
-        # AI turn
-        if self.aigamemode and game.next_player == 'black':
-          if not dragger.dragging:
-            ai_move = ai.make_move(board)
-            if ai_move is not None:
-              initial_square = ai_move.initial
-              final_square = ai_move.final
-              initial_row, initial_col = initial_square.row, initial_square.col
-              final_row, final_col = final_square.row, final_square.col
-              piece = board.squares[initial_row][initial_col].piece
-              board.move(piece, ai_move)  # Make the AI's move
-              game.next_turn()
-              game.show_bg(screen)
-              game.show_last_move(screen)
-              game.show_pieces(screen)
 
         # click
         if event.type == pygame.MOUSEBUTTONDOWN:
